@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasks_api/widgets/register.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -22,13 +23,23 @@ class LoginPage extends StatelessWidget {
               obscureText: true, controller: passwordEditingController,),
             ElevatedButton(onPressed: (){
               loginUser(emailEditingController.text, passwordEditingController.text)
-                  .then((response) {
+                  .then((response) async {
                  if (response.statusCode == 200){
-                   if (jsonDecode(response.body)["token"] != null){
+                   if (jsonDecode(response.body)["token"] != null) {
                      var token = jsonDecode(response.body)["token"];
                      SnackBar snackbar = SnackBar(content: Text("Successfully logged in"));
                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
+                     // Homework = Change this part of code using then
+                     //Change to  then  to remove the error message on navigator push
+                     SharedPreferences prefs = await SharedPreferences.getInstance();
+                     prefs.setString("token", token);
+
+                     // THis should always be the last thing on the function
+                     // Once this is called, as if the page no longer exist (context is passed to second page)
+
                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+
                    }
                    
                  }
