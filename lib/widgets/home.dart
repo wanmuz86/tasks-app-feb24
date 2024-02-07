@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasks_api/widgets/add.dart';
 
 import '../models/task.dart';
 import 'package:http/http.dart' as http;
@@ -30,7 +31,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Task List"),),
+      appBar: AppBar(title: Text("Task List"), actions: [
+        IconButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddPage()));
+        }, icon: Icon(Icons.add))
+      ],),
       body: ListView.builder(
           itemCount: _tasks.length,
           itemBuilder: (context, index){
