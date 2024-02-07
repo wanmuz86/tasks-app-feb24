@@ -20,7 +20,9 @@ class AddPage extends StatelessWidget {
           ElevatedButton(onPressed: (){
             createTask(nameEditingController.text, descEditingController.text, placeEditingController.text).then((response){
               if (response.statusCode == 200){
-                print("Successful");
+                SnackBar snackbar = SnackBar(content: Text("Successfully added"));
+                ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                Navigator.pop(context, {"success":true});
               }
               else {
                 print("Something is wrong");
@@ -51,7 +53,7 @@ class AddPage extends StatelessWidget {
         'description':description,
         'completed':false,
         'user_id':2,
-        'date':date
+        'date':date.toString()
       }),
     );
   }

@@ -32,8 +32,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Task List"), actions: [
-        IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddPage()));
+        IconButton(onPressed: () async {
+          var response = await Navigator.push(context, MaterialPageRoute(builder: (context)=>AddPage()));
+          if (response != null){
+            if (response["success"] == true){
+              loadData();
+            }
+          }
         }, icon: Icon(Icons.add))
       ],),
       body: ListView.builder(
