@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasks_api/widgets/register.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -7,17 +8,20 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Login"),),
-      body: Column(
-        children: [
-          TextField(decoration: InputDecoration(hintText: "Enter email"),
-          keyboardType: TextInputType.emailAddress,),
-          TextField(decoration: InputDecoration(hintText: "Enter password",),
-            obscureText: true,),
-          ElevatedButton(onPressed: (){}, child: Text("Login")),
-          TextButton(onPressed: (){
-            
-          }, child: Text("No account? Register now!"))
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            TextField(decoration: InputDecoration(hintText: "Enter email"),
+            keyboardType: TextInputType.emailAddress,),
+            TextField(decoration: InputDecoration(hintText: "Enter password",),
+              obscureText: true,),
+            ElevatedButton(onPressed: (){}, child: Text("Login")),
+            TextButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterPage()));
+            }, child: Text("No account? Register now!"))
+          ],
+        ),
       ),
     );
   }
